@@ -1,8 +1,8 @@
-<h1 align="centre">DAISYXMUSIC V5.0 🎵</h1>
+<h1 align="centre">SHADOW MUSIC V5.0 🎵</h1>
 
 ### A bot that can play music on Telegram Group and Channel Voice Chats
 #### POWERED BY [MARSHALX TGCALLS](https://github.com/MarshalX/tgcalls)
-### Available on telegram as [@DaisyXbot](https://t.me/daisyxbot)
+### Available on telegram as [@Mr_Shadow_robot](https://t.me/Mr_Shadow_robot)
 
 <p align="center">
   <img src="https://telegra.ph/file/dd04b1968f1bc1169d162.jpg">
@@ -26,7 +26,7 @@
 
 ### 💜 Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/TeamDaisyX/DaisyXMusic)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/deshadeeth-thisarana/ShadowMusic)
 
 Get pyrogram (p)  `SESSION` from here:
 
@@ -79,7 +79,7 @@ For linked group admins only:
 - `/cdplay <song name>` - play song you requested via deezer
 - `/csplay <song name>` - play song you requested via jio saavn
 - `/cplaylist` - Show now playing list
-- `/cccurrent` - Show now playing
+- `/ccurrent` - Show now playing
 - `/cplayer` - open music player settings panel
 - `/cpause` - pause song play
 - `/cresume` - resume song play
@@ -91,7 +91,7 @@ For linked group admins only:
 If you donlt like to play in linked channel:
  1. Get your channel ID.
  2. Rename your group to: Channel Music: your_channel_id
- 3. Add @DaisyXBot as Channel admin with full perms
+ 3. Add @Mr_Shadow_robot as Channel admin with full perms
  4. add helper to channel
  5. Simply send commands in your group.
 
@@ -111,10 +111,11 @@ Don't edit this part
 #### Special Credits
 - [Rojserbest](http://github.com/rojserbes): Callsmusic Developer
 
-This bot is based on the original work done by [Rojserbest](http://github.com/rojserbest). Without his hardwork daisyxmusic won't exist. 
-DaisyXmusic is a modified version of [Callsmusic](https://github.com/callsmusic/callsmusic) for fit the needs of @DaisyXbot users
+This bot is based on the original work done by [Rojserbest](http://github.com/rojserbest). Without his hardwork Shadow Music won't exist. 
+Shadow Music is a modified version of [Callsmusic](https://github.com/callsmusic/callsmusic) for fit the needs of @Mr_Shadow_robot users
 
 #### Contribtors
+- [DeshadeethThisarana](https://github.com/deshadeeth-thisarana)
 - [InukaASiTH](https://github.com/InukaAsith): Dev
 - [Technical-Hunter](https://github.com/Technical-Hunter): Dev
 - [Rojserbest](http://github.com/rojserbest): Dev
