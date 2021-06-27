@@ -20,15 +20,15 @@ from pyrogram import Client
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DaisyXMusic.config import que
-from DaisyXMusic.function.admins import set
-from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.decorators import authorized_users_only
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.filters import command
-from DaisyXMusic.helpers.filters import other_filters
-from DaisyXMusic.services.callsmusic import callsmusic
-from DaisyXMusic.services.queues import queues
+from ShadowMusic.config import que
+from ShadowMusic.function.admins import set
+from ShadowMusic.helpers.channelmusic import get_chat_id
+from ShadowMusic.helpers.decorators import authorized_users_only
+from ShadowMusic.helpers.decorators import errors
+from ShadowMusic.helpers.filters import command
+from ShadowMusic.helpers.filters import other_filters
+from ShadowMusic.services.callsmusic import callsmusic
+from ShadowMusic.services.queues import queues
 
 
 @Client.on_message(filters.command("adminreset"))
