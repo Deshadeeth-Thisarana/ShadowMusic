@@ -1,5 +1,5 @@
-# Daisyxmusic (Telegram bot project)
-# Copyright (C) 2021  Inukaasith
+# Shadow Music (Telegram bot project)
+# Copyright (C) 2021  Deshadeeth Thisarana
 # Copyright (C) 2021  TheHamkerCat (Python_ARQ)
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -34,31 +34,31 @@ from pyrogram.types import Voice
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from Python_ARQ import ARQ
 from youtube_search import YoutubeSearch
-from DaisyXMusic.modules.play import generate_cover
-from DaisyXMusic.modules.play import arq
-from DaisyXMusic.modules.play import cb_admin_check
-from DaisyXMusic.modules.play import transcode
-from DaisyXMusic.modules.play import convert_seconds
-from DaisyXMusic.modules.play import time_to_seconds
-from DaisyXMusic.modules.play import changeImageSize
-from DaisyXMusic.config import BOT_NAME as bn
-from DaisyXMusic.config import DURATION_LIMIT
-from DaisyXMusic.config import UPDATES_CHANNEL as updateschannel
-from DaisyXMusic.config import que
-from DaisyXMusic.function.admins import admins as a
-from DaisyXMusic.helpers.errors import DurationLimitError
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.admins import get_administrators
-from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.decorators import authorized_users_only
-from DaisyXMusic.helpers.filters import command
-from DaisyXMusic.helpers.filters import other_filters
-from DaisyXMusic.helpers.gets import get_file_name
-from DaisyXMusic.services.callsmusic import callsmusic
-from DaisyXMusic.services.callsmusic import client as USER
-from DaisyXMusic.services.converter.converter import convert
-from DaisyXMusic.services.downloaders import youtube
-from DaisyXMusic.services.queues import queues
+from ShadowMusic.modules.play import generate_cover
+from ShadowMusic.modules.play import arq
+from ShadowMusic.modules.play import cb_admin_check
+from ShadowMusic.modules.play import transcode
+from ShadowMusic.modules.play import convert_seconds
+from ShadowMusic.modules.play import time_to_seconds
+from ShadowMusic.modules.play import changeImageSize
+from ShadowMusic.config import BOT_NAME as bn
+from ShadowMusic.config import DURATION_LIMIT
+from ShadowMusic.config import UPDATES_CHANNEL as updateschannel
+from ShadowMusic.config import que
+from ShadowMusic.function.admins import admins as a
+from ShadowMusic.helpers.errors import DurationLimitError
+from ShadowMusic.helpers.decorators import errors
+from ShadowMusic.helpers.admins import get_administrators
+from ShadowMusic.helpers.channelmusic import get_chat_id
+from ShadowMusic.helpers.decorators import authorized_users_only
+from ShadowMusic.helpers.filters import command
+from ShadowMusic.helpers.filters import other_filters
+from ShadowMusic.helpers.gets import get_file_name
+from ShadowMusic.services.callsmusic import callsmusic
+from ShadowMusic.services.callsmusic import client as USER
+from ShadowMusic.services.converter.converter import convert
+from ShadowMusic.services.downloaders import youtube
+from ShadowMusic.services.queues import queues
 
 chat_id = None
 
@@ -774,7 +774,7 @@ async def jiosaavn(client: Client, message_: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "DaisyMusic"
+        user.first_name = "Shadow Music"
     usar = user
     wew = usar.id
     try:
@@ -799,7 +799,7 @@ async def jiosaavn(client: Client, message_: Message):
                 try:
                     await USER.join_chat(invitelink)
                     await lel.edit(
-                        "<b>helper userbot joined your channel</b>",
+                        "<b>Helper userbot joined your channel</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -808,14 +808,14 @@ async def jiosaavn(client: Client, message_: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your channel due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                        "\n\nOr manually add @ShadowHelper to your Group and try again</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> helper Userbot not in this channel, Ask channel admin to send /play command for first time or add assistant manually</i>"
+            "<i> Helper Userbot not in this channel, Ask channel admin to send /play command for first time or add assistant manually</i>"
         )
         return
     requested_by = message_.from_user.first_name
