@@ -35,13 +35,13 @@ Get pyrogram (p)  `SESSION` from here:
 ### ⚔ Self-hosting (For Devs) 
 ```sh
 # Install Git First (apt-instll git)
-$ git clone https://github.com/TeamDaisyX/DaisyXmusic
-$ cd DaisyXMusic
+$ git clone https://github.com/deshadeeth-thisarana/ShadowMusic
+$ cd ShadowMusic
 # Upgrade sources
 # Install All Requirements 
 $ pip3 install -r requirements.txt
 # Fork This Repo and fill local.env and config.py both with your own values.Then Start The Bot
-$ python3 -m DaisyXMusic
+$ python3 -m ShadowMusic
 ```
 
 ### Commands for Group 🛠
@@ -91,8 +91,8 @@ For linked group admins only:
 If you donlt like to play in linked channel:
  1. Get your channel ID.
  2. Rename your group to: Channel Music: your_channel_id
- 3. Add @Mr_Shadow_robot as Channel admin with full perms
- 4. add helper to channel
+ 3. Add [@Mr_Shadow_robot](https://t.me/Mr_Shadow_robot) as Channel admin with full perms
+ 4. Add helper to channel ([@Shadow_Helper](https://t.me/Shadow_Helper))
  5. Simply send commands in your group.
 
 ### Commands for Sudo Users ⚔️
@@ -115,7 +115,7 @@ This bot is based on the original work done by [Rojserbest](http://github.com/ro
 Shadow Music is a modified version of [Callsmusic](https://github.com/callsmusic/callsmusic) for fit the needs of @Mr_Shadow_robot users
 
 #### Contribtors
-- [DeshadeethThisarana](https://github.com/deshadeeth-thisarana)
+- [DeshadeethThisarana](https://github.com/deshadeeth-thisarana): Owner
 - [InukaASiTH](https://github.com/InukaAsith): Dev
 - [Technical-Hunter](https://github.com/Technical-Hunter): Dev
 - [Rojserbest](http://github.com/rojserbest): Dev
@@ -127,4 +127,5 @@ Shadow Music is a modified version of [Callsmusic](https://github.com/callsmusic
 - [Anjana-Ma](https://github.com/Anjana-Ma): 
 - [ImJanindu](https://github.com/ImJanindu): 
 - [MARSHALX](https://github.com/MarshalX): TgCalls
+
 - [Original Repo owners](https://github.com/CallsMusic/CallsMusic)
