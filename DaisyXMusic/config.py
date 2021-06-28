@@ -1,6 +1,6 @@
-# DAISYXMUSIC- Telegram bot project
-# Copyright (C) 2021  Roj Serbest
-# Copyright (C) 2021  Inuka Asith
+# Shadow Music - Telegram bot project
+# Copyright (C) 2021 Roj Serbest
+# Copyright (C) 2021 Deshadeeth Thisarana
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
 # published by the Free Software Foundation, either version 3 of the
@@ -26,16 +26,16 @@ que = {}
 SESSION_NAME = getenv("SESSION_NAME", "session")
 BOT_TOKEN = getenv("BOT_TOKEN")
 BOT_NAME = getenv("BOT_NAME")
-UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "DaisyXupdates")
-BG_IMAGE = getenv("BG_IMAGE", "https://telegra.ph/file/dcfdf612e499eef0e0b1f.png")
+UPDATES_CHANNEL = getenv("UPDATES_CHANNEL", "ShadowBotUpdates")
+BG_IMAGE = getenv("BG_IMAGE", "https://telegra.ph/file/e588c075d8b49ee0819fd.png")
 admins = {}
 API_ID = int(getenv("API_ID", ""))
 API_HASH = getenv("API_HASH")
 BOT_USERNAME = getenv("BOT_USERNAME")
-ASSISTANT_NAME = getenv("ASSISTANT_NAME", "DaisyXhelper")
-SUPPORT_GROUP = getenv("SUPPORT_GROUP", "DaisySupport_Official")
-PROJECT_NAME = getenv("PROJECT_NAME", "DaisyXMusic v5")
-SOURCE_CODE = getenv("SOURCE_CODE", "github.com/TeamOfDaisyX/DaisyXMusic")
+ASSISTANT_NAME = getenv("ASSISTANT_NAME", "Shadow Helper")
+SUPPORT_GROUP = getenv("SUPPORT_GROUP", "ShadowSupport_Official")
+PROJECT_NAME = getenv("PROJECT_NAME", "ShadowMusic")
+SOURCE_CODE = getenv("SOURCE_CODE", "github.com/deshadeeth-thisarana/ShadowMusic")
 DURATION_LIMIT = int(getenv("DURATION_LIMIT", "7"))
 ARQ_API_KEY = getenv("ARQ_API_KEY", None)
 PMPERMIT = getenv("PMPERMIT", None)
