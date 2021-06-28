@@ -1,5 +1,5 @@
-# DaisyXMusic (Telegram bot project)
-# Copyright (C) 2021  Inuka Asith & Rojserbest
+# ShadowMusic (Telegram bot project)
+# Copyright (C) 2021 DeshadeethThisarana & Rojserbest
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -18,11 +18,11 @@
 import requests
 from pyrogram import Client as Bot
 
-from DaisyXMusic.config import API_HASH
-from DaisyXMusic.config import API_ID
-from DaisyXMusic.config import BG_IMAGE
-from DaisyXMusic.config import BOT_TOKEN
-from DaisyXMusic.services.callsmusic import run
+from ShadowMusic.config import API_HASH
+from ShadowMusic.config import API_ID
+from ShadowMusic.config import BG_IMAGE
+from ShadowMusic.config import BOT_TOKEN
+from ShadowMusic.services.callsmusic import run
 
 response = requests.get(BG_IMAGE)
 file = open("./etc/foreground.png", "wb")
@@ -34,7 +34,7 @@ bot = Bot(
     API_ID,
     API_HASH,
     bot_token=BOT_TOKEN,
-    plugins=dict(root="DaisyXMusic.modules"),
+    plugins=dict(root="ShadowMusic.modules"),
 )
 
 bot.start()
