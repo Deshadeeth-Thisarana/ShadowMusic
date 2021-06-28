@@ -5,7 +5,6 @@ from pyrogram.types import InlineQueryResultArticle
 from pyrogram.types import InputTextMessageContent
 from youtubesearchpython import VideosSearch
 
-
 @Client.on_inline_query()
 async def inline(client: Client, query: InlineQuery):
     answers = []
