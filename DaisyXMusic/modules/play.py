@@ -1,5 +1,5 @@
-# Daisyxmusic (Telegram bot project)
-# Copyright (C) 2021  Inukaasith
+# Shadow Music (Telegram bot project)
+# Copyright (C) 2021 Deshadeeth Thisarana
 # Copyright (C) 2021  TheHamkerCat (Python_ARQ)
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -38,25 +38,25 @@ from pyrogram.types import Message
 from Python_ARQ import ARQ
 from youtube_search import YoutubeSearch
 
-from DaisyXMusic.config import ARQ_API_KEY
-from DaisyXMusic.config import BOT_NAME as bn
-from DaisyXMusic.config import DURATION_LIMIT
-from DaisyXMusic.config import UPDATES_CHANNEL as updateschannel
-from DaisyXMusic.config import que
-from DaisyXMusic.function.admins import admins as a
-from DaisyXMusic.helpers.admins import get_administrators
-from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.errors import DurationLimitError
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.decorators import authorized_users_only
-from DaisyXMusic.helpers.filters import command
-from DaisyXMusic.helpers.filters import other_filters
-from DaisyXMusic.helpers.gets import get_file_name
-from DaisyXMusic.services.callsmusic import callsmusic
-from DaisyXMusic.services.callsmusic import client as USER
-from DaisyXMusic.services.converter.converter import convert
-from DaisyXMusic.services.downloaders import youtube
-from DaisyXMusic.services.queues import queues
+from ShadowMusic.config import ARQ_API_KEY
+from ShadowMusic.config import BOT_NAME as bn
+from ShadowMusic.config import DURATION_LIMIT
+from ShadowMusic.config import UPDATES_CHANNEL as updateschannel
+from ShadowMusic.config import que
+from ShadowMusic.function.admins import admins as a
+from ShadowMusic.helpers.admins import get_administrators
+from ShadowMusic.helpers.channelmusic import get_chat_id
+from ShadowMusic.helpers.errors import DurationLimitError
+from ShadowMusic.helpers.decorators import errors
+from ShadowMusic.helpers.decorators import authorized_users_only
+from ShadowMusic.helpers.filters import command
+from ShadowMusic.helpers.filters import other_filters
+from ShadowMusic.helpers.gets import get_file_name
+from ShadowMusic.services.callsmusic import callsmusic
+from ShadowMusic.services.callsmusic import client as USER
+from ShadowMusic.services.converter.converter import convert
+from ShadowMusic.services.downloaders import youtube
+from ShadowMusic.services.queues import queues
 
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
@@ -69,7 +69,7 @@ def cb_admin_check(func: Callable) -> Callable:
         if cb.from_user.id in admemes:
             return await func(client, cb)
         else:
-            await cb.answer("You ain't allowed!", show_alert=True)
+            await cb.answer("You aren't allowed!", show_alert=True)
             return
 
     return decorator
@@ -554,7 +554,7 @@ async def play(_, message: Message):
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
+        thumb_name = "https://telegra.ph/file/83ada646ac70229514cb7.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -742,7 +742,7 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ <b>Playing</b> here the song requested by {} via Youtube Music 😎".format(
+            caption="▶️ <b>Playing</b> here the song requested by {} via Shadow Music 😎".format(
                 message.from_user.mention()
             ),
         )
@@ -790,7 +790,7 @@ async def ytplay(_, message: Message):
                         message.chat.id, "I joined this group for playing music in VC"
                     )
                     await lel.edit(
-                        "<b>helper userbot joined your chat</b>",
+                        "<b>Helper userbot joined your chat</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -900,7 +900,7 @@ async def ytplay(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ <b>Playing</b> here the song requested by {} via Youtube Music 😎".format(
+            caption="▶️ <b>Playing</b> here the song requested by {} via Shadow Music 😎".format(
                 message.from_user.mention()
             ),
         )
@@ -946,7 +946,7 @@ async def deezer(client: Client, message_: Message):
                         message_.chat.id, "I joined this group for playing music in VC"
                     )
                     await lel.edit(
-                        "<b>helper userbot joined your chat</b>",
+                        "<b>Helper userbot joined your chat</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -981,7 +981,7 @@ async def deezer(client: Client, message_: Message):
         url = songs.result[0].url
         artist = songs.result[0].artist
         duration = songs.result[0].duration
-        thumbnail = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
+        thumbnail = "https://telegra.ph/file/83ada646ac70229514cb7.png"
 
     except:
         await res.edit("Found Literally Nothing, You Should Work On Your English!")
@@ -1093,14 +1093,14 @@ async def jiosaavn(client: Client, message_: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @DaisyXmusic to your Group and try again</b>",
+                        "\n\nOr manually add @Shadow_Helper to your Group and try again</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> helper Userbot not in this chat, Ask admin to send /play command for first time or add assistant manually</i>"
+            "<i> Helper Userbot not in this chat, Ask admin to send /play command for first time or add assistant manually</i>"
         )
         return
     requested_by = message_.from_user.first_name
@@ -1291,7 +1291,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
             photo="final.png",
             reply_markup=keyboard,
-            caption=f"▶️ <b>Playing</b> here the song requested by {r_by.mention} via Youtube Music 😎",
+            caption=f"▶️ <b>Playing</b> here the song requested by {r_by.mention} via Shadow Music 😎",
         )
         
         os.remove("final.png")
