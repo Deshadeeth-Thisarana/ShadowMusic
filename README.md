@@ -5,7 +5,7 @@
 ### Available on telegram as [@Mr_Shadow_robot](https://t.me/Mr_Shadow_robot)
 
 <p align="center">
-  <img src="https://telegra.ph/file/dd04b1968f1bc1169d162.jpg">
+  <img src="https://telegra.ph/file/8ac997e71a52833df8378.png">
 </p>
 
 <h2> Features 🔥 </h2>
