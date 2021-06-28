@@ -20,7 +20,7 @@ from ShadowMusic.config import SUDO_USERS
 from ShadowMusic.config import PMPERMIT
 from pyrogram import filters
 from pyrogram.types import Message
-from DaisyXMusic.services.callsmusic import client as USER
+from ShadowMusic.services.callsmusic import client as USER
 
 PMSET =True
 pchats = []
@@ -34,7 +34,7 @@ async def pmPermit(client: USER, message: Message):
                 return
             await USER.send_message(
                 message.chat.id,
-                "Hi there, This is a music assistant service of @Mr_Shadow_robot\n\n ❗️ Rules:\n   - No chatting allowed\n   - No spam allowed \n\n 👉 **SEND GROUP INVITE LINK OR USERNAME IF USERBOT CAN'T JOIN YOUR GROUP.**\n\n ⚠️ Disclamer: If you are sending a message here it means admin will see your message and join chat\n    - Don't add this user to secret groups.\n   - Don't Share private info here\n\n If you have any questions please join @ShadowBotUpdates",
+                "Hi there, This is the music assistant service of @Mr_Shadow_robot\n\n ❗️ Rules:\n   - No chatting allowed\n   - No spam allowed \n\n 👉 **SEND GROUP INVITE LINK OR USERNAME IF USERBOT CAN'T JOIN YOUR GROUP.**\n\n ⚠️ Disclamer: If you are sending a message here it means admin will see your message and join chat\n    - Don't add this user to secret groups.\n   - Don't Share private info here\n\n If you have any questions please join @ShadowBotUpdates",
             )
             return
 
