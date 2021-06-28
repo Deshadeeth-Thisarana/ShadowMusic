@@ -2,8 +2,8 @@ from pyrogram import Client
 from pyrogram import filters
 from pyrogram.types import Message
 
-from DaisyXMusic.services.callsmusic.callsmusic import remove
-from DaisyXMusic.helpers.channelmusic import get_chat_id
+from ShadowMusic.services.callsmusic.callsmusic import remove
+from ShadowMusic.helpers.channelmusic import get_chat_id
 
 
 @Client.on_message(filters.voice_chat_ended)
