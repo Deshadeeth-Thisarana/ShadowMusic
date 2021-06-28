@@ -1,4 +1,4 @@
-<h1 align="centre">SHADOW MUSIC V5.0 🎵</h1>
+<h1 align="centre">SHADOW MUSIC🎵</h1>
 
 ### A bot that can play music on Telegram Group and Channel Voice Chats
 #### POWERED BY [MARSHALX TGCALLS](https://github.com/MarshalX/tgcalls)
@@ -128,4 +128,4 @@ Shadow Music is a modified version of [Callsmusic](https://github.com/callsmusic
 - [ImJanindu](https://github.com/ImJanindu): 
 - [MARSHALX](https://github.com/MarshalX): TgCalls
 
-- [Original Repo owners](https://github.com/CallsMusic/CallsMusic)
+### [Original Repo owners](https://github.com/CallsMusic/CallsMusic)
