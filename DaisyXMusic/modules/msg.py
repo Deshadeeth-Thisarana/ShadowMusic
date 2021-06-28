@@ -1,5 +1,5 @@
-# Daisyxmusic (Telegram bot project )
-# Copyright (C) 2021  Inukaasith
+# Shadow Music (Telegram bot project )
+# Copyright (C) 2021 Deshadeeth Thisarana
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as
@@ -15,11 +15,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import os
-from DaisyXMusic.config import SOURCE_CODE
-from DaisyXMusic.config import ASSISTANT_NAME
-from DaisyXMusic.config import PROJECT_NAME
-from DaisyXMusic.config import SUPPORT_GROUP
-from DaisyXMusic.config import UPDATES_CHANNEL
+from ShadowMusic.config import SOURCE_CODE
+from ShadowMusic.config import ASSISTANT_NAME
+from ShadowMusic.config import PROJECT_NAME
+from ShadowMusic.config import SUPPORT_GROUP
+from ShadowMusic.config import UPDATES_CHANNEL
 class Messages():
       START_MSG = "**Hello 👋 [{}](tg://user?id={})!**\n\n🤖 I am an advanced bot created for playing music in the voice chats of Telegram Groups & Channels.\n\n✅ Send me /help for more info."
       HELP_MSG = [
