@@ -1,6 +1,7 @@
 Pyrogram
 TgCrypto
 pytgcalls
+tgcalls
 python-dotenv
 aiohttp
 aiofiles
