@@ -1,14 +1,13 @@
 Pyrogram
 TgCrypto
 pytgcalls
-tgcalls
 python-dotenv
-aiohttp
-aiofiles
-asyncio
 youtube_dl
 youtube_search_python
 requests
+aiohttp
+aiofiles
+asyncio
 youtube_search
 search_engine_parser
 ffmpeg
@@ -17,3 +16,4 @@ python-arq
 future
 psutil
 wget
+tswift
