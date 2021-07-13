@@ -23,7 +23,7 @@ from ShadowMusic.function.admins import get as gett
 from ShadowMusic.function.admins import set
 
 
-async def get_administrators(chat: Chat) -> List[User]:
+async def get_administrators(chat: Chat) -> List[int]:
     get = gett(chat.id)
 
     if get:
