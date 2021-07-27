@@ -55,7 +55,7 @@ from ShadowMusic.helpers.filters import command
 from ShadowMusic.helpers.filters import other_filters
 from ShadowMusic.helpers.gets import get_file_name
 from ShadowMusic.services.callsmusic import callsmusic
-from ShadowMusic.services.callsmusic import client as USER
+from ShadowMusic.services.callsmusic.callsmusic import client as USER
 from ShadowMusic.services.converter.converter import convert
 from ShadowMusic.services.downloaders import youtube
 from ShadowMusic.services.queues import queues
@@ -580,7 +580,9 @@ async def play(_, message: Message):
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
                     InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [
+                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")
+                ],
             ]
         )
         requested_by = message.from_user.first_name
@@ -644,7 +646,7 @@ async def deezer(client: Client, message_: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "DaisyMusic"
+        user.first_name = "Shadow Helper"
     usar = user
     wew = usar.id
     try:
@@ -669,7 +671,7 @@ async def deezer(client: Client, message_: Message):
                 try:
                     await USER.join_chat(invitelink)
                     await lel.edit(
-                        "<b>helper userbot joined your channel</b>",
+                        "<b>Helper userbot joined your channel</b>",
                     )
 
                 except UserAlreadyParticipant:
