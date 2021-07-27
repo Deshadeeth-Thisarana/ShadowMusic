@@ -1,4 +1,3 @@
-#
 from os import listdir, mkdir
 
 if "raw_files" not in listdir():
