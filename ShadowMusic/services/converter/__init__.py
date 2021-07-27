@@ -1,5 +1,4 @@
-from os import listdir
-from os import mkdir
+from os import listdir, mkdir
 
 if 'raw_files' not in listdir():
     mkdir('raw_files')
