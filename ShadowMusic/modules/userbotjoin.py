@@ -21,7 +21,7 @@ from pyrogram.errors import UserAlreadyParticipant
 import asyncio
 from ShadowMusic.helpers.decorators import authorized_users_only
 from ShadowMusic.helpers.decorators import errors
-from ShadowMusic.services.callsmusic import client as USER
+from ShadowMusic.services.callsmusic.callsmusic import client as USER
 from ShadowMusic.config import SUDO_USERS
 
 @Client.on_message(filters.command(["userbotjoin"]) & ~filters.private & ~filters.bot)
