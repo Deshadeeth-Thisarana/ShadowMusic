@@ -49,7 +49,7 @@ from ShadowMusic.helpers.filters import command
 from ShadowMusic.helpers.filters import other_filters
 from ShadowMusic.helpers.gets import get_file_name
 from ShadowMusic.services.callsmusic import callsmusic
-from ShadowMusic.services.callsmusic import client as USER
+from ShadowMusic.services.callsmusic.callsmusic import client as USER
 from ShadowMusic.services.converter.converter import convert
 from ShadowMusic.services.downloaders import youtube
 from ShadowMusic.services.queues import queues
