@@ -26,7 +26,7 @@
 
 ### 💜 Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/deshadeeth-thisarana/ShadowMusic)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/deshadeeth-thisarana/ShadowMusic/tree/Py-Tgcalls)
 
 Get pyrogram (p)  `SESSION` from here:
 
@@ -91,7 +91,7 @@ For linked group admins only:
 If you donlt like to play in linked channel:
  1. Get your channel ID.
  2. Rename your group to: Channel Music: your_channel_id
- 3. Add [@Mr_Shadow_robot](https://t.me/Mr_Shadow_robot) as Channel admin with full perms
+ 3. Add [@Mr_Shadow_Robot](https://t.me/Mr_Shadow_robot) as Channel admin with full perms
  4. Add helper to channel ([@Shadow_Helper](https://t.me/Shadow_Helper))
  5. Simply send commands in your group.
 
