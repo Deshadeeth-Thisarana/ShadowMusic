@@ -63,4 +63,4 @@ LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL"))
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 
 # Your telegram id
-OWNER_ID = os.environ.get("OWNER_ID", "")
+OWNER_ID = os.environ.get("OWNER_ID", "1041727415")
