@@ -14,9 +14,11 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Modified by DeshadeethThisarana
+# Modified by @DeshadeethThisarana
 
 from os import path
+
+
 from youtube_dl import YoutubeDL
 
 from ShadowMusic.config import DURATION_LIMIT
@@ -38,12 +40,14 @@ def download(url: str) -> str:
 
     if duration > DURATION_LIMIT:
         raise DurationLimitError(
-            f"🛑 Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
+            f"<b>❌  Videos longer than {DURATION_LIMIT} minute(s) aren't allowed</b>, "
+            f"<b>the provided video is {duration} minute(s)</b>",
         )
     try:
         ydl.download([url])
     except:
         raise DurationLimitError(
-            f"🛑 Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
+            f"<b>❌  Videos longer than {DURATION_LIMIT} minute(s) aren't allowed</b>, "
+            f"<b>the provided video is {duration} minute(s)</b>",
         )
     return path.join("downloads", f"{info['id']}.{info['ext']}")
