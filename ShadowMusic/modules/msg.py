@@ -21,7 +21,6 @@ from ShadowMusic.config import PROJECT_NAME
 from ShadowMusic.config import SUPPORT_GROUP
 from ShadowMusic.config import UPDATES_CHANNEL
 class Messages():
-     class Messages():
       START_MSG = "**Hello 👋 [{}](tg://user?id={})!\n I can play music in voice chats of Telegeam Groups & Channels.\nI have a lot of cool feature that will amaze you!\n\nTo add in your group contact us at @ankivectorUpdates .\n\nHit /help list of available commands. **"
       HELP_MSG = [
         ".",
