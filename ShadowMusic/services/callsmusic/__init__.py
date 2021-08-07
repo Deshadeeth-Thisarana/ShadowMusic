@@ -1,4 +1,6 @@
-from ShadowMusic.services.queues import queues
-from ShadowMusic.services.callsmusic.callsmusic import pytgcalls, run
+from pyrogram import Client
 
-__all__ = ["queues", "pytgcalls", "run"]
+from ShadowMusic import config
+
+client = Client(config.SESSION_NAME, config.API_ID, config.API_HASH)
+run = client.run
