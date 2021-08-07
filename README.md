@@ -123,7 +123,7 @@ Shadow Music is a modified version of [Callsmusic](https://github.com/callsmusic
 - [Bemro](https://github.com/bemroofficial): Dev
 - [QueenArzoo](https://github.com/QueenArzoo): Dev
 - [lucifeermorningstar](https://github.com/lucifeermorningstar): Dev
-- [Damantha Jasinghe](https://github.com/Damantha_Jasinghe): Dev
+- [Damantha Jasinghe](https://github.com/Damantha126): Dev
 - [Hamker Cat](https://github.com/thehamkercat/)
 - [Anjana-Ma](https://github.com/Anjana-Ma): 
 - [ImJanindu](https://github.com/ImJanindu): 
