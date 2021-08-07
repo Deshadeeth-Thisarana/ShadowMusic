@@ -21,7 +21,7 @@ from ShadowMusic.config import PROJECT_NAME
 from ShadowMusic.config import SUPPORT_GROUP
 from ShadowMusic.config import UPDATES_CHANNEL
 class Messages():
-      START_MSG = "**Hello 👋 [{}](tg://user?id={})!\n I can play music in voice chats of Telegeam Groups & Channels.\nI have a lot of cool feature that will amaze you!\n\nTo add in your group contact us at @ankivectorUpdates .\n\nHit /help list of available commands. **"
+      START_MSG = "**Hello 👋 [{}](tg://user?id={})!\n I can play music in voice chats of Telegeam Groups & Channels.\nI have a lot of cool feature that will amaze you!\n\nTo add in your group contact us at @ShadowBotUpdates .\n\nHit /help list of available commands. **"
       HELP_MSG = [
         ".",
 f"""
@@ -40,7 +40,9 @@ f"""
 1) Make me admin of your channel 
 2) Send /userbotjoinchannel in linked group
 3) Now send commands in linked group
+
 **Commands**
+
 **⏺Song Playing⏺**
 - /play: Play song using youtube music
 - /play [yt url] : Play the given yt url
