@@ -10,20 +10,21 @@
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
-#
+
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# Modified by @DeshadeethThisarana
 
 from typing import List
 
-from pyrogram.types import Chat
+from pyrogram.types import Chat, User
 
 from ShadowMusic.function.admins import get as gett
 from ShadowMusic.function.admins import set
 
 
-async def get_administrators(chat: Chat) -> List[int]:
+async def get_administrators(chat: Chat) -> List[User]:
     get = gett(chat.id)
 
     if get:
