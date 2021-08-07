@@ -35,28 +35,23 @@ from pyrogram.types import Voice
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from Python_ARQ import ARQ
 from youtube_search import YoutubeSearch
-from ShadowMusic.modules.play import generate_cover
-from ShadowMusic.modules.play import arq
-from ShadowMusic.modules.play import cb_admin_check
-from ShadowMusic.modules.play import transcode
-from ShadowMusic.modules.play import convert_seconds
-from ShadowMusic.modules.play import time_to_seconds
-from ShadowMusic.modules.play import changeImageSize
+
+from ShadowMusic.modules.play import generate_cover, arq, cb_admin_check, transcode, convert_seconds, time_to_seconds, changeImageSize
 from ShadowMusic.config import BOT_NAME as bn
 from ShadowMusic.config import DURATION_LIMIT
 from ShadowMusic.config import UPDATES_CHANNEL as updateschannel
 from ShadowMusic.config import que
 from ShadowMusic.function.admins import admins as a
+from ShadowMusic.helpers.admins import get_administrators
 from ShadowMusic.helpers.errors import DurationLimitError
 from ShadowMusic.helpers.decorators import errors
-from ShadowMusic.helpers.admins import get_administrators
 from ShadowMusic.helpers.channelmusic import get_chat_id
 from ShadowMusic.helpers.decorators import authorized_users_only
-from ShadowMusic.helpers.filters import command
+from ShadowMusic.helpers.filters import command, other_filters
 from ShadowMusic.helpers.filters import other_filters
 from ShadowMusic.helpers.gets import get_file_name
 from ShadowMusic.services.callsmusic import callsmusic
-from ShadowMusic.services.callsmusic.callsmusic import client as USER
+from ShadowMusic.services.callsmusic import client as USER
 from ShadowMusic.services.converter.converter import convert
 from ShadowMusic.services.downloaders import youtube
 from ShadowMusic.services.queues import queues
@@ -96,6 +91,7 @@ async def playlist(client, message):
     await message.reply_text(msg)
 
 
+
 # ============================= Settings =========================================
 
 
@@ -130,8 +126,9 @@ def r_ply(type_):
             [
                 InlineKeyboardButton("Playlist 📖", "cplaylist"),
             ],
-            [InlineKeyboardButton("❌ Close", "ccls")],
-        ]
+            [
+                InlineKeyboardButton("❌ Close", "ccls")],
+            ] 
     )
     return mar
 
@@ -174,7 +171,7 @@ async def settings(client, message):
             await message.reply(stats, reply_markup=r_ply("play"))
     else:
         await message.reply("No VC instances running in this chat")
-
+        
 
 @Client.on_callback_query(filters.regex(pattern=r"^(cplaylist)$"))
 async def p_cb(b, cb):
@@ -321,8 +318,9 @@ async def m_cb(b, cb):
                 [
                     InlineKeyboardButton("Playlist 📖", "cplaylist"),
                 ],
-                [InlineKeyboardButton("❌ Close", "ccls")],
-            ]
+                [
+                    InlineKeyboardButton("❌ Close", "ccls")],
+                ]
         )
         await cb.message.edit(stats, reply_markup=marr)
     elif type_ == "cskip":
@@ -380,7 +378,7 @@ async def play(_, message: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "helper"
+        user.first_name = "Shadow Music"
     usar = user
     wew = usar.id
     try:
@@ -391,7 +389,7 @@ async def play(_, message: Message):
             if administrator == message.from_user.id:
                 if message.chat.title.startswith("Channel Music: "):
                     await lel.edit(
-                        "<b>Remember to add helper to your channel</b>",
+                        "<b>Remember to add Helper to your channel</b>",
                     )
                     pass
 
@@ -399,14 +397,14 @@ async def play(_, message: Message):
                     invitelink = await _.export_chat_invite_link(chid)
                 except:
                     await lel.edit(
-                        "<b>Add me as admin of yor channel  first</b>",
+                        "<b>Add me as admin of yor channel first</b>",
                     )
                     return
 
                 try:
                     await USER.join_chat(invitelink)
                     await lel.edit(
-                        "<b>helper userbot joined your channel</b>",
+                        "<b>Helper userbot joined your channel</b>",
                     )
 
                 except UserAlreadyParticipant:
@@ -422,7 +420,7 @@ async def play(_, message: Message):
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i> {user.first_name} Userbot not in this chat, Ask channel admin to send /play command for first time or add {user.first_name} manually</i>"
+            f"<i> {user.first_name} Userbot not in this chat, Ask channel admin to send `/play` command for first time or add {user.first_name} manually</i>"
         )
         return
     message.from_user.id
@@ -466,12 +464,13 @@ async def play(_, message: Message):
                     InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
                     InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [
+                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
             ]
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
+        thumb_name = "https://telegra.ph/file/83ada646ac70229514cb7.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -527,7 +526,9 @@ async def play(_, message: Message):
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
                     InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
                 ],
-                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [
+                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")
+                ],
             ]
         )
         requested_by = message.from_user.first_name
@@ -618,13 +619,12 @@ async def play(_, message: Message):
         await message.reply_photo(
             photo="final.png",
             reply_markup=keyboard,
-            caption="▶️ <b>Playing</b> the song requested by {} via Youtube Music 😎 in Linked Channel".format(
+            caption="▶️ <b>Playing</b> the song requested by {} via Shadow Music 😎 in Linked Channel".format(
                 message.from_user.mention()
             ),
         )
         os.remove("final.png")
         return await lel.delete()
-
 
 @Client.on_message(filters.command(["channeldplay","cdplay"]) & filters.group & ~filters.edited)
 @authorized_users_only
@@ -647,7 +647,7 @@ async def deezer(client: Client, message_: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "Shadow Helper"
+        user.first_name = "Shadow Music"
     usar = user
     wew = usar.id
     try:
@@ -688,7 +688,7 @@ async def deezer(client: Client, message_: Message):
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            f"<i> {user.first_name} Userbot not in this channel, Ask admin to send /play command for first time or add {user.first_name} manually</i>"
+            f"<i> {user.first_name} Userbot not in this channel, Ask admin to send `/play` command for first time or add {user.first_name} manually</i>"
         )
         return
     requested_by = message_.from_user.first_name
@@ -717,8 +717,12 @@ async def deezer(client: Client, message_: Message):
                 InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
                 InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
             ],
-            [InlineKeyboardButton(text="Listen On Deezer 🎬", url=f"{url}")],
-            [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+            [
+                InlineKeyboardButton(text="Listen On Deezer 🎬", url=f"{url}")
+            ],
+            [
+                InlineKeyboardButton(text="❌ Close", callback_data="ccls")
+            ],
         ]
     )
     file_path = await convert(wget.download(url))
@@ -811,14 +815,14 @@ async def jiosaavn(client: Client, message_: Message):
                     # print(e)
                     await lel.edit(
                         f"<b>🔴 Flood Wait Error 🔴 \nUser {user.first_name} couldn't join your channel due to heavy requests for userbot! Make sure user is not banned in group."
-                        "\n\nOr manually add @ShadowHelper to your Group and try again</b>",
+                        "\n\nOr manually add @Shadow_Helper to your Group and try again</b>",
                     )
     try:
         await USER.get_chat(chid)
         # lmoa = await client.get_chat_member(chid,wew)
     except:
         await lel.edit(
-            "<i> Helper Userbot not in this channel, Ask channel admin to send /play command for first time or add assistant manually</i>"
+            "<i> Helper Userbot not in this channel, Ask channel admin to send `/play` command for first time or add assistant manually</i>"
         )
         return
     requested_by = message_.from_user.first_name
@@ -835,7 +839,7 @@ async def jiosaavn(client: Client, message_: Message):
         sname = songs.result[0].song
         slink = songs.result[0].media_url
         ssingers = songs.result[0].singers
-        sthumb = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
+        sthumb = "https://telegra.ph/file/83ada646ac70229514cb7.png"
         sduration = int(songs.result[0].duration)
     except Exception as e:
         await res.edit("Found Literally Nothing!, You Should Work On Your English.")
@@ -848,11 +852,11 @@ async def jiosaavn(client: Client, message_: Message):
                 InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
             ],
             [
-                InlineKeyboardButton(
-                    text="Join Updates Channel", url=f"https://t.me/{updateschannel}"
-                )
+                InlineKeyboardButton(text="🔄 Updates Channel", url=f"https://t.me/{updateschannel}")
             ],
-            [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+            [
+                InlineKeyboardButton(text="❌ Close", callback_data="ccls")
+            ],
         ]
     )
     file_path = await convert(wget.download(slink))
@@ -893,3 +897,4 @@ async def jiosaavn(client: Client, message_: Message):
         caption=f"Playing {sname} Via Jiosaavn in linked channel",
     )
     os.remove("final.png")
+    
