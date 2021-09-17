@@ -2,6 +2,7 @@
 # So full credits should be goes to them
 
 import socket
+
 import heroku3
 
 
@@ -24,6 +25,7 @@ async def paste(content):
 
 
 # Updator
+
 
 def fetch_heroku_git_url(api_key, app_name):
     if not api_key:

@@ -1,28 +1,34 @@
 # Credits to @AbirHasan2005, @Damantha_Jasinghe, DevsExpo and DaisyXMusic
 
-import sys
-import os
-import heroku3
-import time
-import traceback
 import asyncio
+import os
 import shutil
-import psutil
-
-from pyrogram import Client, filters
-from pyrogram.types import Message, Dialog, Chat
-from pyrogram.errors import UserAlreadyParticipant
-from datetime import datetime
+import sys
+import traceback
 from functools import wraps
-from os import environ, execle, path, remove
-from git import Repo
-from git.exc import GitCommandError, InvalidGitRepositoryError, NoSuchPathError
+from os import environ, execle
 
-from ShadowMusic.services.callsmusic import client as pakaya
+import heroku3
+import psutil
+from git import Repo
+from git.exc import GitCommandError, InvalidGitRepositoryError
+from pyrogram import Client, filters
+from pyrogram.types import Message
+
+from ShadowMusic.config import (
+    BOT_USERNAME,
+    HEROKU_API_KEY,
+    HEROKU_APP_NAME,
+    HEROKU_URL,
+    OWNER_ID,
+    SUDO_USERS,
+    U_BRANCH,
+    UPSTREAM_REPO,
+)
 from ShadowMusic.helpers.database import db
 from ShadowMusic.helpers.dbthings import main_broadcast_handler
-from ShadowMusic.modules.song import humanbytes, get_text
-from ShadowMusic.config import BOT_USERNAME, OWNER_ID, UPSTREAM_REPO, U_BRANCH, HEROKU_URL, HEROKU_API_KEY, HEROKU_APP_NAME, SUDO_USERS
+from ShadowMusic.modules.song import get_text, humanbytes
+from ShadowMusic.services.callsmusic import client as pakaya
 
 
 # Stats Of Your Bot
@@ -34,25 +40,31 @@ async def botstats(_, message: Message):
     free = humanbytes(free)
     cpu_usage = psutil.cpu_percent()
     ram_usage = psutil.virtual_memory().percent
-    disk_usage = psutil.disk_usage('/').percent
+    disk_usage = psutil.disk_usage("/").percent
     total_users = await db.total_users_count()
     await message.reply_text(
         text=f"**💫 Bot Stats Of @{BOT_USERNAME} 💫** \n\n**🤖 Bot Version:** `V2.9.1` \n\n**👥 Users:** \n ↳**PM'ed Users:** `{total_users}` \n\n**💾 Disk Usage,** \n ↳**Total Disk Space:** `{total}` \n ↳**Used:** `{used}({disk_usage}%)` \n ↳**Free:** `{free}` \n\n**🎛 Hardware Usage,** \n ↳**CPU Usage:** `{cpu_usage}%` \n ↳**RAM Usage:** `{ram_usage}%`",
         parse_mode="Markdown",
-        quote=True
+        quote=True,
     )
 
 
 # Broadcast message to users (This will Broadcast using Bot with Db)
-@Client.on_message(filters.private & filters.command("vcbroadcast") & filters.user(OWNER_ID) & filters.reply)
+@Client.on_message(
+    filters.private
+    & filters.command("vcbroadcast")
+    & filters.user(OWNER_ID)
+    & filters.reply
+)
 async def broadcast_handler_open(_, m: Message):
     await main_broadcast_handler(m, db)
+
 
 # Broadcast message to users (This will Broadcast using streamer account without db)
 @Client.on_message(filters.command(["vcchatcast"]))
 async def chatcast(_, message: Message):
-    sent=0
-    failed=0
+    sent = 0
+    failed = 0
     if message.from_user.id not in SUDO_USERS:
         await message.reply("Go away! This is not for you 😂!")
         return
@@ -65,13 +77,19 @@ async def chatcast(_, message: Message):
         async for dialog in pakaya.iter_dialogs():
             try:
                 await pakaya.send_message(dialog.chat.id, lmao)
-                sent = sent+1
-                await wtf.edit(f"`ChatCasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
+                sent = sent + 1
+                await wtf.edit(
+                    f"`ChatCasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats"
+                )
             except:
-                failed=failed+1
-                await wtf.edit(f"`ChatCasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
+                failed = failed + 1
+                await wtf.edit(
+                    f"`ChatCasting...` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats"
+                )
             await asyncio.sleep(3)
-        await message.reply_text(f"`ChatCasting Finished 😌` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats")
+        await message.reply_text(
+            f"`ChatCasting Finished 😌` \n\n**Sent to:** `{sent}` Chats \n**Failed in:** {failed} Chats"
+        )
 
 
 # Ban User
@@ -80,91 +98,90 @@ async def ban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
             f"Use this command to ban Users from using this bot 🤒! Read __**/modhelp**__ to Learn how to use this 🤭!",
-            quote=True
+            quote=True,
         )
         return
     try:
         user_id = int(m.command[1])
         ban_duration = int(m.command[2])
-        ban_reason = ' '.join(m.command[3:])
+        ban_reason = " ".join(m.command[3:])
         ban_log_text = f"`Banning User 🗑...` \nUser ID: `{user_id}` \nDuration: `{ban_duration}` \nReason: `{ban_reason}`"
         try:
             await c.send_message(
                 user_id,
-                f"Lmao You are **Banned 😂!** \n\nReason: `{ban_reason}` \nDuration: `{ban_duration}` day(s). \n\n**Message From The Owner! Ask from **@DeshadeethThisarana** if you think this was an mistake."
+                f"Lmao You are **Banned 😂!** \n\nReason: `{ban_reason}` \nDuration: `{ban_duration}` day(s). \n\n**Message From The Owner! Ask from **@DeshadeethThisarana** if you think this was an mistake.",
             )
-            ban_log_text += '\n\nSuccessfully Notified About This Ban to that **Dumb User** 😅'
+            ban_log_text += (
+                "\n\nSuccessfully Notified About This Ban to that **Dumb User** 😅"
+            )
         except:
             traceback.print_exc()
             ban_log_text += f"\n\nKCUF! I can't Notify About This Ban to That **Dumb User** 🤯 \n\n`{traceback.format_exc()}`"
         await db.ban_user(user_id, ban_duration, ban_reason)
         print(ban_log_text)
-        await m.reply_text(
-            ban_log_text,
-            quote=True
-        )
+        await m.reply_text(ban_log_text, quote=True)
     except:
         traceback.print_exc()
         await m.reply_text(
             f"An Error Occoured ❌! Traceback is given below\n\n`{traceback.format_exc()}`",
-            quote=True
+            quote=True,
         )
 
 
 # Unban User
-@Client.on_message(filters.private & filters.command("vcunban") & filters.user(OWNER_ID))
+@Client.on_message(
+    filters.private & filters.command("vcunban") & filters.user(OWNER_ID)
+)
 async def unban(c: Client, m: Message):
     if len(m.command) == 1:
         await m.reply_text(
             f"Use this command to ban Users from using this bot 🤒! Read __**/modhelp**__ to Learn how to use this 🤭!",
-            quote=True
+            quote=True,
         )
         return
     try:
         user_id = int(m.command[1])
         unban_log_text = f"`Unbanning user...` /n**User ID:**{user_id}"
         try:
-            await c.send_message(
-                user_id,
-                f"Good News! **You are Unbanned** 😊!"
+            await c.send_message(user_id, f"Good News! **You are Unbanned** 😊!")
+            unban_log_text += (
+                "\n\nSuccessfully Notified About This to that **Good User** 😅"
             )
-            unban_log_text += '\n\nSuccessfully Notified About This to that **Good User** 😅'
         except:
             traceback.print_exc()
             unban_log_text += f"\n\nKCUF! I can't Notify About This to That **Dumb User** 🤯 \n\n`{traceback.format_exc()}`"
         await db.remove_ban(user_id)
         print(unban_log_text)
-        await m.reply_text(
-            unban_log_text,
-            quote=True
-        )
+        await m.reply_text(unban_log_text, quote=True)
     except:
         traceback.print_exc()
         await m.reply_text(
             f"An Error Occoured ❌! Traceback is given below\n\n`{traceback.format_exc()}`",
-            quote=True
+            quote=True,
         )
 
 
 # Banned User List
-@Client.on_message(filters.private & filters.command("vcbanlist") & filters.user(OWNER_ID))
+@Client.on_message(
+    filters.private & filters.command("vcbanlist") & filters.user(OWNER_ID)
+)
 async def _banned_usrs(_, m: Message):
     all_banned_users = await db.get_all_banned_users()
     banned_usr_count = 0
-    text = ''
+    text = ""
     async for banned_user in all_banned_users:
-        user_id = banned_user['id']
-        ban_duration = banned_user['ban_status']['ban_duration']
-        banned_on = banned_user['ban_status']['banned_on']
-        ban_reason = banned_user['ban_status']['ban_reason']
+        user_id = banned_user["id"]
+        ban_duration = banned_user["ban_status"]["ban_duration"]
+        banned_on = banned_user["ban_status"]["banned_on"]
+        ban_reason = banned_user["ban_status"]["ban_reason"]
         banned_usr_count += 1
         text += f"➬ **User ID**: `{user_id}`, **Ban Duration**: `{ban_duration}`, **Banned Date**: `{banned_on}`, **Ban Reason**: `{ban_reason}`\n\n"
     reply_text = f"**Total Banned:** `{banned_usr_count}`\n\n{text}"
     if len(reply_text) > 4096:
-        with open('banned-user-list.txt', 'w') as f:
+        with open("banned-user-list.txt", "w") as f:
             f.write(reply_text)
-        await m.reply_document('banned-user-list.txt', True)
-        os.remove('banned-user-list.txt')
+        await m.reply_document("banned-user-list.txt", True)
+        os.remove("banned-user-list.txt")
         return
     await m.reply_text(reply_text, True)
 
@@ -173,15 +190,14 @@ async def _banned_usrs(_, m: Message):
 REPO_ = UPSTREAM_REPO
 BRANCH_ = U_BRANCH
 
+
 @Client.on_message(filters.command("vcupdate") & filters.user(OWNER_ID))
 async def updatebot(_, message: Message):
     msg = await message.reply_text("`Updating Module is Starting! Please Wait...`")
     try:
         repo = Repo()
     except GitCommandError:
-        return await msg.edit(
-            "`Invalid Git Command!`"
-        )
+        return await msg.edit("`Invalid Git Command!`")
     except InvalidGitRepositoryError:
         repo = Repo.init()
         if "upstream" in repo.remotes:
@@ -215,7 +231,9 @@ async def updatebot(_, message: Message):
         return
     else:
         await msg.edit("`Heroku Detected!`")
-        await msg.edit("`Updating and Restarting has Started! Please wait for 5-10 Minutes!`")
+        await msg.edit(
+            "`Updating and Restarting has Started! Please wait for 5-10 Minutes!`"
+        )
         ups_rem.fetch(U_BRANCH)
         repo.git.reset("--hard", "FETCH_HEAD")
         if "heroku" in repo.remotes:
@@ -231,6 +249,7 @@ async def updatebot(_, message: Message):
 
 
 # Heroku Logs
+
 
 async def edit_or_send_as_file(
     text: str,
@@ -257,19 +276,17 @@ async def edit_or_send_as_file(
         return await message.edit(text, parse_mode=parse_mode)
 
 
-
 heroku_client = None
 if HEROKU_API_KEY:
     heroku_client = heroku3.from_key(HEROKU_API_KEY)
+
 
 def _check_heroku(func):
     @wraps(func)
     async def heroku_cli(client, message):
         heroku_app = None
         if not heroku_client:
-            await message.reply_text(
-                "`Please Add Heroku API Key To Use This Feature!`"
-            )
+            await message.reply_text("`Please Add Heroku API Key To Use This Feature!`")
         elif not HEROKU_APP_NAME:
             await edit_or_reply(
                 message, "`Please Add Heroku APP Name To Use This Feature!`"
@@ -279,12 +296,14 @@ def _check_heroku(func):
                 heroku_app = heroku_client.app(HEROKU_APP_NAME)
             except:
                 await message.reply_text(
-                    message, "`Heroku Api Key And App Name Doesn't Match! Check it again`"
+                    message,
+                    "`Heroku Api Key And App Name Doesn't Match! Check it again`",
                 )
             if heroku_app:
                 await func(client, message, heroku_app)
 
     return heroku_cli
+
 
 @Client.on_message(filters.command("vclogs") & filters.user(OWNER_ID))
 @_check_heroku
@@ -299,7 +318,7 @@ async def logswen(client: Client, message: Message, happ):
 @Client.on_message(filters.command("vcrestart") & filters.user(OWNER_ID))
 @_check_heroku
 async def restart(client: Client, message: Message, hap):
-    msg = await message.reply_text("`Restarting Now! Please wait...`")
+    await message.reply_text("`Restarting Now! Please wait...`")
     hap.restart()
 
 

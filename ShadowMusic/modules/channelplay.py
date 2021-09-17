@@ -16,40 +16,23 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-import json
 from os import path
-from typing import Callable
 
-import aiofiles
-import aiohttp
-import ffmpeg
 import requests
 import wget
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-from pyrogram import Client 
-from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
-from pyrogram.types import Voice
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from Python_ARQ import ARQ
 from youtube_search import YoutubeSearch
 
-from ShadowMusic.modules.play import generate_cover, arq, cb_admin_check, transcode, convert_seconds, time_to_seconds, changeImageSize
 from ShadowMusic.config import BOT_NAME as bn
 from ShadowMusic.config import DURATION_LIMIT
 from ShadowMusic.config import UPDATES_CHANNEL as updateschannel
 from ShadowMusic.config import que
-from ShadowMusic.function.admins import admins as a
 from ShadowMusic.helpers.admins import get_administrators
-from ShadowMusic.helpers.errors import DurationLimitError
-from ShadowMusic.helpers.decorators import errors
-from ShadowMusic.helpers.channelmusic import get_chat_id
 from ShadowMusic.helpers.decorators import authorized_users_only
-from ShadowMusic.helpers.filters import command, other_filters
-from ShadowMusic.helpers.filters import other_filters
 from ShadowMusic.helpers.gets import get_file_name
+from ShadowMusic.modules.play import arq, cb_admin_check, generate_cover
 from ShadowMusic.services.callsmusic import callsmusic
 from ShadowMusic.services.callsmusic import client as USER
 from ShadowMusic.services.converter.converter import convert
@@ -59,14 +42,16 @@ from ShadowMusic.services.queues import queues
 chat_id = None
 
 
-@Client.on_message(filters.command(["channelplaylist","cplaylist"]) & filters.group & ~filters.edited)
+@Client.on_message(
+    filters.command(["channelplaylist", "cplaylist"]) & filters.group & ~filters.edited
+)
 async def playlist(client, message):
     try:
-      lel = await client.get_chat(message.chat.id)
-      lol = lel.linked_chat.id
+        lel = await client.get_chat(message.chat.id)
+        lol = lel.linked_chat.id
     except:
-      message.reply("Is this cat even linked?")
-      return
+        message.reply("Is this cat even linked?")
+        return
     global que
     queue = que.get(lol)
     if not queue:
@@ -89,7 +74,6 @@ async def playlist(client, message):
             msg += f"\n- {name}"
             msg += f"\n- Req by {usr}\n"
     await message.reply_text(msg)
-
 
 
 # ============================= Settings =========================================
@@ -126,22 +110,23 @@ def r_ply(type_):
             [
                 InlineKeyboardButton("Playlist 📖", "cplaylist"),
             ],
-            [
-                InlineKeyboardButton("❌ Close", "ccls")],
-            ] 
+            [InlineKeyboardButton("❌ Close", "ccls")],
+        ]
     )
     return mar
 
 
-@Client.on_message(filters.command(["channelcurrent","ccurrent"]) & filters.group & ~filters.edited)
+@Client.on_message(
+    filters.command(["channelcurrent", "ccurrent"]) & filters.group & ~filters.edited
+)
 async def ee(client, message):
     try:
-      lel = await client.get_chat(message.chat.id)
-      lol = lel.linked_chat.id
-      conv = lel.linked_chat
+        lel = await client.get_chat(message.chat.id)
+        lol = lel.linked_chat.id
+        conv = lel.linked_chat
     except:
-      await message.reply("Is chat even linked")
-      return
+        await message.reply("Is chat even linked")
+        return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
     if stats:
@@ -150,17 +135,19 @@ async def ee(client, message):
         await message.reply("No VC instances running in this chat")
 
 
-@Client.on_message(filters.command(["channelplayer","cplayer"]) & filters.group & ~filters.edited)
+@Client.on_message(
+    filters.command(["channelplayer", "cplayer"]) & filters.group & ~filters.edited
+)
 @authorized_users_only
 async def settings(client, message):
     playing = None
     try:
-      lel = await client.get_chat(message.chat.id)
-      lol = lel.linked_chat.id
-      conv = lel.linked_chat
+        lel = await client.get_chat(message.chat.id)
+        lol = lel.linked_chat.id
+        conv = lel.linked_chat
     except:
-      await message.reply("Is chat even linked")
-      return
+        await message.reply("Is chat even linked")
+        return
     queue = que.get(lol)
     stats = updated_stats(conv, queue)
     if stats:
@@ -171,17 +158,17 @@ async def settings(client, message):
             await message.reply(stats, reply_markup=r_ply("play"))
     else:
         await message.reply("No VC instances running in this chat")
-        
+
 
 @Client.on_callback_query(filters.regex(pattern=r"^(cplaylist)$"))
 async def p_cb(b, cb):
     global que
     try:
-      lel = await client.get_chat(cb.message.chat.id)
-      lol = lel.linked_chat.id
-      conv = lel.linked_chat
+        lel = await client.get_chat(cb.message.chat.id)
+        lol = lel.linked_chat.id
+        conv = lel.linked_chat
     except:
-      return    
+        return
     que.get(lol)
     type_ = cb.matches[0].group(1)
     cb.message.chat.id
@@ -223,18 +210,17 @@ async def m_cb(b, cb):
     ):
         chet_id = int(chat.title[13:])
     else:
-      try:
-        lel = await b.get_chat(cb.message.chat.id)
-        lol = lel.linked_chat.id
-        conv = lel.linked_chat
-        chet_id = lol
-      except:
-        return
+        try:
+            lel = await b.get_chat(cb.message.chat.id)
+            lol = lel.linked_chat.id
+            conv = lel.linked_chat
+            chet_id = lol
+        except:
+            return
     qeue = que.get(chet_id)
     type_ = cb.matches[0].group(1)
     cb.message.chat.id
     m_chat = cb.message.chat
-    
 
     the_data = cb.message.reply_markup.inline_keyboard[1][0].callback_data
     if type_ == "cpause":
@@ -245,9 +231,7 @@ async def m_cb(b, cb):
         else:
             callsmusic.pause(chet_id)
             await cb.answer("Music Paused!")
-            await cb.message.edit(
-                updated_stats(conv, qeue), reply_markup=r_ply("play")
-            )
+            await cb.message.edit(updated_stats(conv, qeue), reply_markup=r_ply("play"))
 
     elif type_ == "cplay":
         if (chet_id not in callsmusic.active_chats) or (
@@ -318,9 +302,8 @@ async def m_cb(b, cb):
                 [
                     InlineKeyboardButton("Playlist 📖", "cplaylist"),
                 ],
-                [
-                    InlineKeyboardButton("❌ Close", "ccls")],
-                ]
+                [InlineKeyboardButton("❌ Close", "ccls")],
+            ]
         )
         await cb.message.edit(stats, reply_markup=marr)
     elif type_ == "cskip":
@@ -335,9 +318,7 @@ async def m_cb(b, cb):
                 callsmusic.stop(chet_id)
                 await cb.message.edit("- No More Playlist..\n- Leaving VC!")
             else:
-                await callsmusic.set_stream(
-                    chet_id, queues.get(chet_id)["file"]
-                )
+                await callsmusic.set_stream(chet_id, queues.get(chet_id)["file"])
                 await cb.answer.reply_text("✅ <b>Skipped</b>")
                 await cb.message.edit((m_chat, qeue), reply_markup=r_ply(the_data))
                 await cb.message.reply_text(
@@ -347,7 +328,7 @@ async def m_cb(b, cb):
     else:
         if chet_id in callsmusic.active_chats:
             try:
-               queues.clear(chet_id)
+                queues.clear(chet_id)
             except QueueEmpty:
                 pass
 
@@ -357,24 +338,26 @@ async def m_cb(b, cb):
             await cb.answer("Chat is not connected!", show_alert=True)
 
 
-@Client.on_message(filters.command(["channelplay","cplay"])  & filters.group & ~filters.edited)
+@Client.on_message(
+    filters.command(["channelplay", "cplay"]) & filters.group & ~filters.edited
+)
 @authorized_users_only
 async def play(_, message: Message):
     global que
     lel = await message.reply("🔄 <b>Processing</b>")
 
     try:
-      conchat = await _.get_chat(message.chat.id)
-      conv = conchat.linked_chat
-      conid = conchat.linked_chat.id
-      chid = conid
+        conchat = await _.get_chat(message.chat.id)
+        conv = conchat.linked_chat
+        conid = conchat.linked_chat.id
+        chid = conid
     except:
-      await message.reply("Is chat even linked")
-      return
+        await message.reply("Is chat even linked")
+        return
     try:
-      administrators = await get_administrators(conv)
+        administrators = await get_administrators(conv)
     except:
-      await message.reply("Am I admin of Channel")
+        await message.reply("Am I admin of Channel")
     try:
         user = await USER.get_me()
     except:
@@ -391,7 +374,6 @@ async def play(_, message: Message):
                     await lel.edit(
                         "<b>Remember to add Helper to your channel</b>",
                     )
-                    pass
 
                 try:
                     invitelink = await _.export_chat_invite_link(chid)
@@ -439,14 +421,12 @@ async def play(_, message: Message):
             entities = message.reply_to_message.entities + entities
         elif message.reply_to_message.caption_entities:
             entities = message.reply_to_message.entities + entities
-        urls = [entity for entity in entities if entity.type == 'url']
-        text_links = [
-            entity for entity in entities if entity.type == 'text_link'
-        ]
+        urls = [entity for entity in entities if entity.type == "url"]
+        text_links = [entity for entity in entities if entity.type == "text_link"]
     else:
-        urls=None
+        urls = None
     if text_links:
-        urls = True    
+        urls = True
     audio = (
         (message.reply_to_message.audio or message.reply_to_message.voice)
         if message.reply_to_message
@@ -464,8 +444,7 @@ async def play(_, message: Message):
                     InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
                     InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
                 ],
-                [
-                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
+                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
             ]
         )
         file_name = get_file_name(audio)
@@ -504,18 +483,20 @@ async def play(_, message: Message):
             )
             print(str(e))
             return
-        try:    
-            secmul, dur, dur_arr = 1, 0, duration.split(':')
-            for i in range(len(dur_arr)-1, -1, -1):
-                dur += (int(dur_arr[i]) * secmul)
+        try:
+            secmul, dur, dur_arr = 1, 0, duration.split(":")
+            for i in range(len(dur_arr) - 1, -1, -1):
+                dur += int(dur_arr[i]) * secmul
                 secmul *= 60
             if (dur / 60) > DURATION_LIMIT:
-                 await lel.edit(f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!")
-                 return
+                await lel.edit(
+                    f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!"
+                )
+                return
         except:
-            pass        
+            pass
         dlurl = url
-        dlurl=dlurl.replace("youtube","youtubepp")
+        dlurl = dlurl.replace("youtube", "youtubepp")
         keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -526,14 +507,12 @@ async def play(_, message: Message):
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
                     InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
                 ],
-                [
-                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")
-                ],
+                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
             ]
         )
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(youtube.download(url))        
+        file_path = await convert(youtube.download(url))
     else:
         query = ""
         for i in message.command[1:]:
@@ -560,18 +539,20 @@ async def play(_, message: Message):
             )
             print(str(e))
             return
-        try:    
-            secmul, dur, dur_arr = 1, 0, duration.split(':')
-            for i in range(len(dur_arr)-1, -1, -1):
-                dur += (int(dur_arr[i]) * secmul)
+        try:
+            secmul, dur, dur_arr = 1, 0, duration.split(":")
+            for i in range(len(dur_arr) - 1, -1, -1):
+                dur += int(dur_arr[i]) * secmul
                 secmul *= 60
             if (dur / 60) > DURATION_LIMIT:
-                 await lel.edit(f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!")
-                 return
+                await lel.edit(
+                    f"❌ Videos longer than {DURATION_LIMIT} minutes aren't allowed to play!"
+                )
+                return
         except:
             pass
         dlurl = url
-        dlurl=dlurl.replace("youtube","youtubepp")
+        dlurl = dlurl.replace("youtube", "youtubepp")
         keyboard = InlineKeyboardMarkup(
             [
                 [
@@ -582,9 +563,7 @@ async def play(_, message: Message):
                     InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
                     InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
                 ],
-                [
-                    InlineKeyboardButton(text="❌ Close", callback_data="ccls")
-                ],
+                [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
             ]
         )
         requested_by = message.from_user.first_name
@@ -626,24 +605,27 @@ async def play(_, message: Message):
         os.remove("final.png")
         return await lel.delete()
 
-@Client.on_message(filters.command(["channeldplay","cdplay"]) & filters.group & ~filters.edited)
+
+@Client.on_message(
+    filters.command(["channeldplay", "cdplay"]) & filters.group & ~filters.edited
+)
 @authorized_users_only
 async def deezer(client: Client, message_: Message):
     global que
     lel = await message_.reply("🔄 <b>Processing</b>")
 
     try:
-      conchat = await client.get_chat(message_.chat.id)
-      conid = conchat.linked_chat.id
-      conv = conchat.linked_chat
-      chid = conid
+        conchat = await client.get_chat(message_.chat.id)
+        conid = conchat.linked_chat.id
+        conv = conchat.linked_chat
+        chid = conid
     except:
-      await message_.reply("Is chat even linked")
-      return
+        await message_.reply("Is chat even linked")
+        return
     try:
-      administrators = await get_administrators(conv)
+        administrators = await get_administrators(conv)
     except:
-      await message.reply("Am I admin of Channel") 
+        await message.reply("Am I admin of Channel")
     try:
         user = await USER.get_me()
     except:
@@ -660,7 +642,6 @@ async def deezer(client: Client, message_: Message):
                     await lel.edit(
                         "<b>Remember to add helper to your channel</b>",
                     )
-                    pass
                 try:
                     invitelink = await client.export_chat_invite_link(chid)
                 except:
@@ -695,11 +676,11 @@ async def deezer(client: Client, message_: Message):
 
     text = message_.text.split(" ", 1)
     queryy = text[1]
-    query=queryy
+    query = queryy
     res = lel
     await res.edit(f"Searching 🔍 for `{queryy}` on deezer")
     try:
-        songs = await arq.deezer(query,1)
+        songs = await arq.deezer(query, 1)
         if not songs.ok:
             await message_.reply_text(songs.result)
             return
@@ -717,12 +698,8 @@ async def deezer(client: Client, message_: Message):
                 InlineKeyboardButton("📖 Playlist", callback_data="cplaylist"),
                 InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
             ],
-            [
-                InlineKeyboardButton(text="Listen On Deezer 🎬", url=f"{url}")
-            ],
-            [
-                InlineKeyboardButton(text="❌ Close", callback_data="ccls")
-            ],
+            [InlineKeyboardButton(text="Listen On Deezer 🎬", url=f"{url}")],
+            [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
         ]
     )
     file_path = await convert(wget.download(url))
@@ -761,23 +738,25 @@ async def deezer(client: Client, message_: Message):
     os.remove("final.png")
 
 
-@Client.on_message(filters.command(["channelsplay","csplay"]) & filters.group & ~filters.edited)
+@Client.on_message(
+    filters.command(["channelsplay", "csplay"]) & filters.group & ~filters.edited
+)
 @authorized_users_only
 async def jiosaavn(client: Client, message_: Message):
     global que
     lel = await message_.reply("🔄 **Processing**")
     try:
-      conchat = await client.get_chat(message_.chat.id)
-      conid = conchat.linked_chat.id
-      conv = conchat.linked_chat
-      chid = conid
+        conchat = await client.get_chat(message_.chat.id)
+        conid = conchat.linked_chat.id
+        conv = conchat.linked_chat
+        chid = conid
     except:
-      await message_.reply("Is chat even linked")
-      return
+        await message_.reply("Is chat even linked")
+        return
     try:
-      administrators = await get_administrators(conv)
+        administrators = await get_administrators(conv)
     except:
-      await message.reply("Am I admin of Channel")
+        await message.reply("Am I admin of Channel")
     try:
         user = await USER.get_me()
     except:
@@ -794,7 +773,6 @@ async def jiosaavn(client: Client, message_: Message):
                     await lel.edit(
                         "<b>Remember to add helper to your channel</b>",
                     )
-                    pass
                 try:
                     invitelink = await client.export_chat_invite_link(chid)
                 except:
@@ -852,11 +830,11 @@ async def jiosaavn(client: Client, message_: Message):
                 InlineKeyboardButton("Menu ⏯ ", callback_data="cmenu"),
             ],
             [
-                InlineKeyboardButton(text="🔄 Updates Channel", url=f"https://t.me/{updateschannel}")
+                InlineKeyboardButton(
+                    text="🔄 Updates Channel", url=f"https://t.me/{updateschannel}"
+                )
             ],
-            [
-                InlineKeyboardButton(text="❌ Close", callback_data="ccls")
-            ],
+            [InlineKeyboardButton(text="❌ Close", callback_data="ccls")],
         ]
     )
     file_path = await convert(wget.download(slink))
@@ -897,4 +875,3 @@ async def jiosaavn(client: Client, message_: Message):
         caption=f"Playing {sname} Via Jiosaavn in linked channel",
     )
     os.remove("final.png")
-    

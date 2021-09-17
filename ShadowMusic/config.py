@@ -15,9 +15,11 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 # Modified by Inukaasith
 
-from os import getenv
 import os
+from os import getenv
+
 from dotenv import load_dotenv
+
 from ShadowMusic.helpers.modhelps import fetch_heroku_git_url
 
 if os.path.exists("local.env"):
@@ -47,7 +49,9 @@ SUDO_USERS = list(map(int, getenv("SUDO_USERS", "1041727415 1578642178").split()
 # Updator Configs
 HEROKU_APP_NAME = os.environ.get("HEROKU_APP_NAME", None)
 HEROKU_API_KEY = os.environ.get("HEROKU_API_KEY", None)
-UPSTREAM_REPO = os.environ.get("UPSTREAM_REPO", "https://github.com/deshadeeth-thisarana/ShadowMusic")
+UPSTREAM_REPO = os.environ.get(
+    "UPSTREAM_REPO", "https://github.com/deshadeeth-thisarana/ShadowMusic"
+)
 U_BRANCH = "master"
 HEROKU_URL = fetch_heroku_git_url(HEROKU_API_KEY, HEROKU_APP_NAME)
 
@@ -58,8 +62,8 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 LOG_CHANNEL = int(os.environ.get("LOG_CHANNEL"))
 
 # If you need to broadcast messages as a copy or Forwarded Message
-#If as a copy use "True"
-#If as a forward use "False"
+# If as a copy use "True"
+# If as a forward use "False"
 BROADCAST_AS_COPY = bool(os.environ.get("BROADCAST_AS_COPY", False))
 
 # Your telegram id

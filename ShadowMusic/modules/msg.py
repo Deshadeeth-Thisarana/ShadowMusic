@@ -14,23 +14,19 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import os
-from ShadowMusic.config import SOURCE_CODE
-from ShadowMusic.config import ASSISTANT_NAME
-from ShadowMusic.config import PROJECT_NAME
-from ShadowMusic.config import SUPPORT_GROUP
-from ShadowMusic.config import UPDATES_CHANNEL
-class Messages():
-      START_MSG = "**Hello 👋 [{}](tg://user?id={})!\n I can play music in voice chats of Telegeam Groups & Channels.\nI have a lot of cool feature that will amaze you!\n\nTo add in your group contact us at @ShadowBotUpdates .\n\nHit /help list of available commands. **"
-      HELP_MSG = [
+from ShadowMusic.config import ASSISTANT_NAME, PROJECT_NAME
+
+
+class Messages:
+    START_MSG = "**Hello 👋 [{}](tg://user?id={})!\n I can play music in voice chats of Telegeam Groups & Channels.\nI have a lot of cool feature that will amaze you!\n\nTo add in your group contact us at @ShadowBotUpdates .\n\nHit /help list of available commands. **"
+    HELP_MSG = [
         ".",
-f"""
+        f"""
 **Hey 👋 Welcome back to {PROJECT_NAME}
 \n\n♦️ {PROJECT_NAME} can play music in your group's voice chat as well as channel voice chats
 \n♦️ Assistant name >> @{ASSISTANT_NAME}\n\nClick next for instructions**
 """,
-
-f"""
+        f"""
 **⏺Setting up⏺**
 1) Make bot admin (Group and in channel if use cplay)
 2) Start a voice chat
@@ -59,8 +55,7 @@ f"""
 - /playlist: Shows playlist
 *Player cmd and all other cmds except /play, /current  and /playlist  are only for admins of the group.
 """,
-
-f"""
+        f"""
 **⏺Channel Music Play⏺**
 \n\n <b>♦️ For linked group admins only:</b>
 - /cplay [song name] - play song you requested
@@ -82,8 +77,7 @@ channel is also can be used instead of c ( /cplay = /channelplay )
 4) Add @{ASSISTANT_NAME} to the channel as an admin.
 5) Simply send commands in your group.
 """,
-
-f"""**⏺More tools⏺**
+        f"""**⏺More tools⏺**
 - /musicplayer [on/off]: Enable/Disable Music player
 - /admincache: Updates admin info of your group. Try if bot isn't recognize admin
 - /userbotjoin: Invite @{ASSISTANT_NAME} Userbot to your chat
@@ -92,5 +86,5 @@ f"""**⏺More tools⏺**
  - /gcast <reply to message> - globally brodcast replied message to all chats
  - /pmpermit [on/off] - enable/disable pmpermit message
 *Sudo Users can execute any command in any groups
-"""
-      ]
+""",
+    ]
