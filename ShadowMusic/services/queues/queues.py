@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-from asyncio import Queue
 from asyncio import Queue as _Queue
 from asyncio import QueueEmpty as Empty
 from typing import Dict
